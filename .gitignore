@@ -9,7 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
-back_gastos/
+backGastos/
 .vscode/
 
 share/python-wheels/
