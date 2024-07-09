@@ -26,8 +26,10 @@ def create_ususario():
     if errors:
         return jsonify(errors), 400
     registro = UsuarioService.create(data)
-    result = registro_schema.dump(registro) 
-    return jsonify(result), 201
+    if "error" in registro:
+        return jsonify(registro), 400
+    return jsonify(registro), 201
+
 
 @usuario_bp.route('/<int:id>', methods=['PUT'])
 def update_ususario(id):
