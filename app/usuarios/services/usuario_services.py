@@ -20,3 +20,4 @@ class UsuarioService:
     @staticmethod
     def delete(id):
         return UsuarioRepository.delete(id)
+

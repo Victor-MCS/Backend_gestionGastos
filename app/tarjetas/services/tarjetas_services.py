@@ -2,8 +2,8 @@ from app.tarjetas.repositories.tarjetas_repository import TarjetasRepository
 
 class TarjetasService:
     @staticmethod
-    def get_all():
-        return TarjetasRepository.get_all()
+    def get_all(id):
+        return TarjetasRepository.get_all(id)
 
     @staticmethod
     def get_by_id(id):

@@ -1,42 +1,42 @@
 from flask import Blueprint, request, jsonify
 from app.tarjetas.services.tarjetas_services import TarjetasService
-from app.tarjetas.schemas import RegistroSchema
+from app.tarjetas.schemas import TarjetasSchema
 
 tarjetas_bp = Blueprint('tarjetas', __name__)
 
-registro_schema = RegistroSchema()
-registros_schema = RegistroSchema(many=True)
-
-@tarjetas_bp.route('/', methods=['GET'])
-def get_registros():
-    registros = TarjetasService.get_all()
-    return jsonify(registros), 200
+tarjeta_schema = TarjetasSchema()
+tarjetas_schema = TarjetasSchema(many=True)
 
 @tarjetas_bp.route('/<int:id>', methods=['GET'])
-def get_registro(id):
+def get_tarjetas(id):
+    registros = TarjetasService.get_all(id)
+    return jsonify(registros), 200
+
+@tarjetas_bp.route('/profile/<int:id>', methods=['GET'])
+def get_tarjeta(id):
     registro = TarjetasService.get_by_id(id)
     if not registro:
         return jsonify({'error': 'Registro no encontrado'}), 404
     return jsonify(registro), 200
 
 @tarjetas_bp.route('/', methods=['POST'])
-def create_registro():
+def create_tarjeta():
     data = request.get_json()
-    errors = registro_schema.validate(data)
+    errors = tarjeta_schema.validate(data)
     if errors:
         return jsonify(errors), 400
     registro = TarjetasService.create(data)
-    result = registro_schema.dump(registro) 
-    return jsonify(result), 201
+    result = tarjeta_schema.dump(registro) 
+    return result, 201
 
 @tarjetas_bp.route('/<int:id>', methods=['PUT'])
 def update_registro(id):
     data = request.get_json()
-    errors = registro_schema.validate(data)
+    errors = tarjeta_schema.validate(data)
     if errors:
         return jsonify(errors), 400
     registro = TarjetasService.update(id, data)
-    result = registro_schema.dump(registro) 
+    result = tarjeta_schema.dump(registro) 
     return jsonify(result), 200
 
 @tarjetas_bp.route('/<int:id>', methods=['DELETE'])

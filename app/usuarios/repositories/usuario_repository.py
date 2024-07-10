@@ -12,7 +12,7 @@ class UsuarioRepository:
         conn.close()
 
         usuarios = [{'email': row[0], 'name': row[1], 'password': row[2]} for row in rows]
-        return json.dumps(usuarios)  
+        return usuarios
 
     @staticmethod
     def get_by_id(id):
