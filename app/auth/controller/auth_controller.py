@@ -36,5 +36,4 @@ def login():
     if not user:
         return jsonify({'error': 'Credenciales incorrectas'}), 401
 
-    return jsonify({'message': 'Inicio de sesión exitoso'}, user[0]), 200
-
+    return jsonify({'message': 'Inicio de sesión exitoso'}, user[0],user[1]), 200
